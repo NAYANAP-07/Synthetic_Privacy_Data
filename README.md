@@ -38,5 +38,3 @@ Organizations and researchers often need to share datasets but risk leaking sens
 
 
 
-git clone https://github.com/yourusername/synthetic-privacy-engine.git
-cd synthetic-privacy-engine
