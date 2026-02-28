@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Synthetic Data Privacy Verification Engine</title>
+    <style>
+      body {
+        font-family: Arial;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .box {
+        border: 1px solid #ddd;
+        padding: 20px;
+        display: inline-block;
+      }
+      h1 {
+        color: #2c3e50;
+      }
+      .safe {
+        color: green;
+        font-weight: bold;
+      }
+      .risk {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔐 Synthetic Data Privacy Verification Engine</h1>
+
+    <div class="box">
+      <h2>Upload Dataset (CSV)</h2>
+      <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required />
+        <button type="submit">Analyze</button>
+      </form>
+
+      {% if similarity is not none %}
+      <hr />
+
+      <p><b>Statistical Similarity:</b> {{ similarity }}%</p>
+      <p><b>Re-identification Risk:</b> {{ reid }}%</p>
+      <p><b>Membership Inference Risk:</b> {{ membership }}%</p>
+
+      <hr />
+      <h2>Final Privacy Score: {{ score }}/100</h2>
+
+      <h3 class="{% if score > 75 %}safe{% else %}risk{% endif %}">
+        {{ status }}
+      </h3>
+
+      {% if dominant_risk %}
+      <p><b>Primary Vulnerability:</b> {{ dominant_risk }}</p>
+      {% endif %}
+
+      <br />
+      <img src="{{ url_for('static', filename='tradeoff.png') }}" width="400" />
+
+      {% endif %}
+    </div>
+  </body>
+</html>
